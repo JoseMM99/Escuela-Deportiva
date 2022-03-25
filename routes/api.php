@@ -25,12 +25,12 @@ use App\Http\Controllers\AssignmentController;
 
 //Login
 Route::post('login',[UserController::class, 'authenticate']);
+Route::get('validar',[UserController::class, 'validation']);
 
 Route::group(['middleware' => ['jwt.verify']], function() {
     //User
     Route::get('Authenticate',[UserController::class, 'getAuthenticatedUser']);
     Route::post('user',[UserController::class, 'register']);
-    Route::get('validar',[UserController::class, 'validation']);
     Route::put('user/update/{uuid}',[UserController::class, 'update']);
     Route::get('user/listSA',[UserController::class, 'listSA']);
     Route::get('user/listA',[UserController::class, 'listA']);
