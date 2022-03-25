@@ -33,7 +33,10 @@ Route::group(['middleware' => ['jwt.verify']], function() {
 Route::post('user',[UserController::class, 'register']);
 Route::get('validar',[UserController::class, 'validation']);
 Route::put('user/update/{uuid}',[UserController::class, 'update']);
-Route::get('user/list',[UserController::class, 'list']);
+Route::get('user/listSA',[UserController::class, 'listSA']);
+Route::get('user/listA',[UserController::class, 'listA']);
+Route::delete('user/delete/{uuid}',[UserController::class, 'delete']);
+
 //Roles
 Route::get('rol',[RolController::class, 'list']);
 //Teachers
@@ -78,5 +81,9 @@ Route::get('period/edit/{uuid}',[PeriodController::class, 'edit']);
 Route::delete('period/delete/{uuid}',[PeriodController::class, 'delete']);
 //Assignment
 Route::post('assignment',[AssignmentController::class, 'register']);
+Route::put('assignment/update/{uuid}',[AssignmentController::class, 'update']);
+Route::get('assignment/list',[AssignmentController::class, 'list']);
+Route::get('assignment/edit/{uuid}',[AssignmentController::class, 'edit']);
+Route::delete('assignment/delete/{uuid}',[AssignmentController::class, 'delete']);
 
 

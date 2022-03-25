@@ -4,16 +4,17 @@ use App\Models\Assignment;
 
 class AssignmentRepository{
 
-    public function create($uuid, 
-                           $assignmentDate, 
-                           $assistance, 
-                           $student_id, 
-                           $teacher_id, 
-                           $activity_id, 
-                           $practice_id, 
-                           $grade_id, 
-                           $period_id){
-                               
+    public function create(
+        $uuid,
+        $assignmentDate,
+        $assistance,
+        $student_id,
+        $teacher_id,
+        $activity_id,
+        $practice_id,
+        $grade_id,
+        $period_id)
+    {
         $assignment['uuid'] = $uuid;
         $assignment['assignmentDate'] = $assignmentDate;
         $assignment['assistance'] = $assistance;
@@ -23,6 +24,7 @@ class AssignmentRepository{
         $assignment['practice_id'] = $practice_id;
         $assignment['grade_id'] = $grade_id;
         $assignment['period_id'] = $period_id;
+
         return Assignment::create($assignment);
     }
 
@@ -41,5 +43,9 @@ class AssignmentRepository{
     public function delete($uuid){
         $assignment = $this->find($uuid);
         return $assignment->delete();
+    }
+
+    public function list(){
+        return Assignment::all();
     }
 }

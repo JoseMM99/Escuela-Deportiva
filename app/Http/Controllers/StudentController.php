@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
@@ -53,6 +54,9 @@ class StudentController extends Controller
             Log::warning('StudentController - register - Falta un campo por llenar');
             return response()->json($validator->errors()->toJson(), 400);
         }
+
+        DB::beginTransaction();
+
         try{
             $person = $this->people_repository->create(
                 Uuid::generate()->string,
@@ -89,12 +93,15 @@ class StudentController extends Controller
             $token = JWTAuth::fromUser($user);
             $this->sendEmail($user);
             
+            DB::commit();
+            
             Log::info('StudentController - register - Se creo un nuevo usuario');
             return response()->json(compact('user', 'token', 'student', 'person'),201);
 
         }catch(\Exception $ex){
             Log::emergency('StudentController - register - Ocurrio un error');
             return response()->json(['error'=>$ex->getMessage()]);
+            DB::rollback();
         }
     }
 

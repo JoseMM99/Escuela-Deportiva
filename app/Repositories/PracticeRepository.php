@@ -28,6 +28,5 @@ class PracticeRepository{
 
     public function list(){
         return Practice::all();
-
     }
 }

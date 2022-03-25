@@ -127,6 +127,7 @@ class UserController extends Controller
         if($validator->fails()){
             Log::warning('UserController - register - Falta un campo por llenar');
             return response()->json($validator->errors()->toJson(), 400);
+
         }
         try{
             if($request->input("roles")=="teacher"){
@@ -250,8 +251,7 @@ class UserController extends Controller
                     $person->id,
                     User::SuperAdmin
                 );
-            }
-            
+            } 
 
             $token = JWTAuth::fromUser($user);
             $this->sendEmail($user);
@@ -268,6 +268,7 @@ class UserController extends Controller
     public function update(Request $request, $uuid){
         $validator = Validator::make($request->all(),[
             'name' => 'required|string|max:35',
+            'email' => 'required|email|unique:users',
             'password' => 'required|string|max:16',
             'lastNameP' => 'required|string|max:30',
             'lastNameM' => 'required|string|max:30',
@@ -314,6 +315,7 @@ class UserController extends Controller
                     $request->get('lastNameP'),
                     $request->get('lastNameM'),
                     $request->get('email'),
+                    $request->get('password'),
                 );
             }
             else if($request->input("roles")=="estudiante"){
@@ -342,6 +344,7 @@ class UserController extends Controller
                     $request->get('lastNameP'),
                     $request->get('lastNameM'),
                     $request->get('email'),
+                    $request->get('password'),
                 );
             }
             else if($request->input("roles")=="admin"){
@@ -366,6 +369,7 @@ class UserController extends Controller
                     $request->get('lastNameP'),
                     $request->get('lastNameM'),
                     $request->get('email'),
+                    $request->get('password'),
                 );
             }
             else if($request->input("roles")=="superadmin"){
@@ -390,6 +394,7 @@ class UserController extends Controller
                     $request->get('lastNameP'),
                     $request->get('lastNameM'),
                     $request->get('email'),
+                    $request->get('password'),
                 );
             }
             
@@ -405,8 +410,8 @@ class UserController extends Controller
         }
     }
 
-    public function list(){
-        $person = User::Where('rol_id', '=', User::SuperAdmin, 'AND', 'rol_id', '=', User::Student)->get();
+    public function listSA(){
+        $person = User::Where('rol_id', '=', User::SuperAdmin)->get();
         $usersL = [];
         foreach($person as $key=> $value){
             $usersL[$key] = [
@@ -432,6 +437,50 @@ class UserController extends Controller
                 'photo' => $value->people->photo,
             ];
             return response()->json($usersL);
+        }
+    }
+
+    public function listA(){
+        $person = User::Where('rol_id', '=', User::Admin)->get();
+        $usersL = [];
+        foreach($person as $key=> $value){
+            $usersL[$key] = [
+                'id'=> $value['id'],
+                'uuid'=> $value['uuid'],
+                'name'=> $value['name'],
+                'email'=> $value['email'],
+                'validation'=> $value['validation'],
+                'people_id'=> $value['people_id'],
+                'rol_id'=> $value['rol_id'],
+                'uuid_persona' => $value->people->uuid,
+                'name_persona' => $value->people->name,
+                'lastNameP' => $value->people->lastNameP,
+                'lastNameM' => $value->people->lastNameM,
+                'gender' => $value->people->gender,
+                'bloodGroup' => $value->people->bloodGroup,
+                'rhFactor' => $value->people->rhFactor,
+                'birthDate' => $value->people->birthDate,
+                'phone' => $value->people->phone,
+                'street' => $value->people->street,
+                'avenue' => $value->people->avenue,
+                'postalCode' => $value->people->postalCode,
+                'photo' => $value->people->photo,
+            ];
+            return response()->json($usersL);
+        }
+    }
+
+    public function delete($uuid){
+        try{
+            $person = People::Where('uuid', '=', $uuid)->first();
+            $person->user->delete();
+            $person->delete();
+            Log::info('UserController - delete - Eliminaste un Entrenador');
+            return response()->json('Datos eliminados');
+
+        }catch(\Exception $ex){
+            Log::emergency('UserController - delete - Ocurrio un error');
+            return response()->json(['error'=>$ex->getMessage()]);
         }
     }
 }

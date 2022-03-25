@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
@@ -53,6 +54,9 @@ class TeacherController extends Controller
             Log::warning('TeacherController - register - Falta un campo por llenar');
             return response()->json($validator->errors()->toJson(), 400);
         }
+
+        DB::beginTransaction();
+
         try{
             $person = $this->people_repository->create(
                 Uuid::generate()->string,
@@ -88,6 +92,8 @@ class TeacherController extends Controller
 
             $token = JWTAuth::fromUser($user);
             $this->sendEmail($user);
+
+            DB::commit();
             
             Log::info('TeacherController - register - Se creo un nuevo usuario');
             return response()->json(compact('user', 'token', 'teacher', 'person'),201);
@@ -95,6 +101,7 @@ class TeacherController extends Controller
         }catch(\Exception $ex){
             Log::emergency('TeacherController - register - Ocurrio un error');
             return response()->json(['error'=>$ex->getMessage()]);
+            DB::rollback();
         }
     }
 
@@ -117,6 +124,9 @@ class TeacherController extends Controller
             Log::warning('TeacherController - update - Falta un campo por llenar');
             return response()->json($validator->errors()->toJson(), 400);
         }
+
+        DB::beginTransaction();
+
         try{
             $global = People::Where('uuid', '=', $uuid)->first();
 
@@ -146,12 +156,15 @@ class TeacherController extends Controller
                 $request->get('lastNameM'),
             );
 
+            DB::commit();
+
             Log::info('TeacherController - update - Se actualizó un profesor');
             return response()->json(compact('user', 'teacher', 'person'),201);
 
         }catch(\Exception $ex){
             Log::emergency('TeacherController - update - Ocurrio un error');
             return response()->json(['error'=>$ex->getMessage()]);
+            DB::rollback();
         }
     }
 
