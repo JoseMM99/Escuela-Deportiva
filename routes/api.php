@@ -35,8 +35,8 @@ Route::get('validar',[UserController::class, 'validation']);
 Route::put('user/update/{uuid}',[UserController::class, 'update']);
 Route::get('user/listSA',[UserController::class, 'listSA']);
 Route::get('user/listA',[UserController::class, 'listA']);
+Route::get('user/edit/{uuid}',[UserController::class, 'edit']);
 Route::delete('user/delete/{uuid}',[UserController::class, 'delete']);
-
 //Roles
 Route::get('rol',[RolController::class, 'list']);
 //Teachers

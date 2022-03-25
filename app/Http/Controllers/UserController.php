@@ -470,6 +470,34 @@ class UserController extends Controller
         }
     }
 
+    public function edit($uuid){
+        $person = People::Where('uuid', '=', $uuid)->first();
+        $user = User::Where('uuid', '=', $person->user->uuid)->first();
+
+        $masvar = [
+            'id' => $person['id'],
+            'uuid' => $person['uuid'],
+            'name' => $person['name'],
+            'lastNameP' => $person['lastNameP'],
+            'lastNameM' => $person['lastNameM'],
+            'gender' => $person['gender'],
+            'bloodGroup' => $person['bloodGroup'],
+            'rhFactor' => $person['rhFactor'],
+            'birthDate' => $person['birthDate'],
+            'phone' => $person['phone'],
+            'street' => $person['street'],
+            'avenue' => $person['avenue'],
+            'postalCode' => $person['postalCode'],
+            'photo' => $person['photo'],
+            'uuid_user' => $user['uuid'],
+            'name_user' => $user['name'],
+            'email' => $user['email'],
+            'validation' => $user['validation'],
+            'rol_id' => $user['rol_id'],
+        ];
+        return response()->json($masvar);
+    }
+
     public function delete($uuid){
         try{
             $person = People::Where('uuid', '=', $uuid)->first();
