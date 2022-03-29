@@ -49,7 +49,4 @@ class Assignment extends Eloquent
         return $this->belongsTo(Grade::class);
     }
 
-    public function period(){
-        return $this->belongsTo(Period::class);
-    }
 }

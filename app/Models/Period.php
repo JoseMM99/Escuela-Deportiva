@@ -24,7 +24,7 @@ class Period extends Eloquent
         'deleted_at'
     ];
 
-    public function assignment(){
+    public function student(){
         return $this->hasOne(Assignment::class);
     }
 }

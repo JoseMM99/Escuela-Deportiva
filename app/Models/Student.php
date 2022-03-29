@@ -15,7 +15,8 @@ class Student extends Eloquent
         'id',
         'uuid',
         'curp',
-        'people_id'
+        'people_id',
+        'period_id'
     ];
 
     protected $hidden = [
@@ -30,5 +31,9 @@ class Student extends Eloquent
     
     public function assignment(){
         return $this->hasOne(Assignment::class);
+    }
+
+    public function period(){
+        return $this->belongsTo(People::class);
     }
 }

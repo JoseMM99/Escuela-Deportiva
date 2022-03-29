@@ -4,10 +4,11 @@ use App\Models\Student;
 
 class StudentRepository{
 
-    public function create($uuid, $curp, $people_id){
+    public function create($uuid, $curp, $people_id, $period_id){
         $student['uuid'] = $uuid;
         $student['curp'] = $curp;
         $student['people_id'] = $people_id;
+        $student['period_id'] = $period_id;
         return Student::create($student);
     }
 

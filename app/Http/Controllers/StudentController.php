@@ -49,6 +49,8 @@ class StudentController extends Controller
             'avenue' => 'required|string|max:25',
             'postalCode' => 'required|string|max:5',
             'curp' => 'required|string|max:18',
+            'period_id' => 'required|numeric'
+
         ]);
         if($validator->fails()){
             Log::warning('StudentController - register - Falta un campo por llenar');
@@ -76,7 +78,8 @@ class StudentController extends Controller
             $student = $this->student_repository->create(
                 Uuid::generate()->string,
                 $request->get('curp'),
-                $person->id,
+                $request->get('period_id'),
+                $person->id
             );
             $user = $this->user_repository->create(
                 Uuid::generate()->string,
@@ -118,7 +121,8 @@ class StudentController extends Controller
             'street' => 'required|string|max:25',
             'avenue' => 'required|string|max:25',
             'postalCode' => 'required|string|max:5',
-            'curp' => 'required|string|max:18'
+            'curp' => 'required|string|max:18',
+
         ]);
         if($validator->fails()){
             Log::warning('StudentController - update - Falta un campo por llenar');
@@ -229,6 +233,7 @@ class StudentController extends Controller
                 'photo' => $value->people->photo,
                 'uuid_student' => $value->people->student->uuid,
                 'curp' => $value->people->student->curp,
+                'period_id' => $value->people->student->period_id,
             ];
             return response()->json($students);
         }
@@ -260,7 +265,8 @@ class StudentController extends Controller
             'validation' => $user['validation'],
             'rol_id' => $user['rol_id'],
             'uuid_student' => $student['uuid'],
-            'rfc' => $student['rfc'],
+            'curp' => $student['curp'],
+            'period_id' => $student['period_id'],
         ];
         return response()->json($masvar);
     }

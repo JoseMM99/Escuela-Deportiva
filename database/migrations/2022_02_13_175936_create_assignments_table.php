@@ -34,9 +34,6 @@ return new class extends Migration
             $table->unsignedBigInteger('grade_id');
             $table->foreign('grade_id')->references('id')->on('grades');
 
-            $table->unsignedBigInteger('period_id');
-            $table->foreign('period_id')->references('id')->on('periods');
-            
             $table->timestamps();
             $table->softDeletes();
         });

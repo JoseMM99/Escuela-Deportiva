@@ -49,7 +49,6 @@ class AssignmentController extends Controller
             'student_id' => 'required|numeric',
             'teacher_id' => 'required|numeric',
             'activity_id' => 'required|numeric',
-            'period_id' => 'required|numeric'
         ]);
 
         if ($validator->fails()) {
@@ -81,7 +80,6 @@ class AssignmentController extends Controller
                 $request->get('activity_id'),
                 $practice->id,
                 $calif->id,
-                $request->get('period_id'),
             );
 
             DB::commit();
@@ -143,7 +141,6 @@ class AssignmentController extends Controller
                 $request->get('student_id'),
                 $request->get('teacher_id'),
                 $request->get('activity_id'),
-                $request->get('period_id'),
             );
 
             DB::commit();

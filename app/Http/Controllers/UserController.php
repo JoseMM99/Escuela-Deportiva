@@ -182,6 +182,7 @@ class UserController extends Controller
                 $student = $this->student_repository->create(
                     Uuid::generate()->string,
                     $request->get('curp'),
+                    $request->get('period_id'),
                     $person->id,
                 );
                 $user = $this->user_repository->create(
@@ -288,7 +289,7 @@ class UserController extends Controller
         try{
             $global = People::Where('uuid', '=', $uuid)->first();
 
-            if($request->input("roles")=="profesor"){
+            if($request->input("roles")=="student"){
 
                 $person = $this->people_repository->update(
                     $global->uuid,
@@ -318,7 +319,7 @@ class UserController extends Controller
                     $request->get('password'),
                 );
             }
-            else if($request->input("roles")=="estudiante"){
+            else if($request->input("roles")=="student"){
                 $person = $this->people_repository->update(
                     $global->uuid,
                     $request->get('name'),

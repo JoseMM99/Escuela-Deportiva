@@ -12,8 +12,7 @@ class AssignmentRepository{
         $teacher_id,
         $activity_id,
         $practice_id,
-        $grade_id,
-        $period_id)
+        $grade_id)
     {
         $assignment['uuid'] = $uuid;
         $assignment['assignmentDate'] = $assignmentDate;
@@ -23,7 +22,6 @@ class AssignmentRepository{
         $assignment['activity_id'] = $activity_id;
         $assignment['practice_id'] = $practice_id;
         $assignment['grade_id'] = $grade_id;
-        $assignment['period_id'] = $period_id;
 
         return Assignment::create($assignment);
     }

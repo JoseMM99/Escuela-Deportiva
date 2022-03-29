@@ -20,6 +20,9 @@ return new class extends Migration
             
             $table->unsignedBigInteger('people_id');
             $table->foreign('people_id')->references('id')->on('people');
+
+            $table->unsignedBigInteger('period_id');
+            $table->foreign('period_id')->references('id')->on('periods');
             
             $table->timestamps();
             $table->softDeletes();
