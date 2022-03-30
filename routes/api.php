@@ -11,6 +11,8 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\PracticeController;
 use App\Http\Controllers\AssignmentController;
+use App\Http\Controllers\CourseController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -81,6 +83,13 @@ Route::put('period/update/{uuid}',[PeriodController::class, 'update']);
 Route::get('period/list',[PeriodController::class, 'list']);
 Route::get('period/edit/{uuid}',[PeriodController::class, 'edit']);
 Route::delete('period/delete/{uuid}',[PeriodController::class, 'delete']);
+//Course
+Route::post('course',[CourseController::class, 'register']);
+Route::put('course/update/{uuid}',[CourseController::class, 'update']);
+Route::get('course/list',[CourseController::class, 'list']);
+Route::get('course/edit/{uuid}',[CourseController::class, 'edit']);
+Route::delete('course/delete/{uuid}',[CourseController::class, 'delete']);
+
 //Assignment
 Route::post('assignment',[AssignmentController::class, 'register']);
 Route::put('assignment/update/{uuid}',[AssignmentController::class, 'update']);

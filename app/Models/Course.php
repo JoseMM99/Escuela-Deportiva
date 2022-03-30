@@ -6,25 +6,28 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model as Eloquent;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Period extends Eloquent
+class Course extends Eloquent
 {
     use softDeletes;
-    protected $table = 'periods';
-
+    protected $table = 'courses';
     protected $fillable = [
         'id',
         'uuid',
-        'dateStarPeriod',
-        'dateClosingPeriod'
+        'name',
+        'description',
+        'period_id'
     ];
-    
+
     protected $hidden = [
         'created_at',
         'updated_at',
         'deleted_at'
     ];
-
-    public function course(){
-        return $this->hasOne(Course::class);
+    
+    public function student(){
+        return $this->hasOne(Student::class);
+    }
+    public function period(){
+        return $this->belongsTo(Period::class);
     }
 }
