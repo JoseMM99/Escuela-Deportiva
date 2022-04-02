@@ -18,9 +18,6 @@ class CreateActivitiesTable extends Migration
             $table->uuid('uuid');
             $table->string('name');
             $table->string('description');
-
-            //$table->unsignedBigInteger('grade_id');
-            //$table->foreign('grade_id')->references('id')->on('grades');
             
             $table->timestamps();
             $table->softDeletes();

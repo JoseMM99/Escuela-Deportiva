@@ -10,6 +10,7 @@ class Course extends Eloquent
 {
     use softDeletes;
     protected $table = 'courses';
+
     protected $fillable = [
         'id',
         'uuid',

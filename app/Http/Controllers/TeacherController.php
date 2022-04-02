@@ -236,8 +236,8 @@ class TeacherController extends Controller
                 'uuid_teacher' => $value->people->teacher->uuid,
                 'rfc' => $value->people->teacher->rfc,
             ];
-            return response()->json($teachers);
         }
+        return response()->json($teachers);
     }
 
     public function edit($uuid){

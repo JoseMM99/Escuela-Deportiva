@@ -16,7 +16,7 @@ class Student extends Eloquent
         'uuid',
         'curp',
         'people_id',
-        'course_id'
+        'course_id',
     ];
 
     protected $hidden = [

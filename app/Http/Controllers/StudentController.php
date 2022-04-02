@@ -12,9 +12,11 @@ use Tymon\JWTAuth\Exceptions\JWTException;
 use App\Repositories\StudentRepository;
 use App\Repositories\PeopleRepository;
 use App\Repositories\UserRepository;
+use App\Repositories\CourseRepository;
 use App\Models\Student;
 use App\Models\People;
 use App\Models\User;
+use App\Models\Course;
 use File;
 use JWTAuth;
 use Mail;
@@ -49,7 +51,7 @@ class StudentController extends Controller
             'avenue' => 'required|string|max:25',
             'postalCode' => 'required|string|max:5',
             'curp' => 'required|string|max:18',
-            'period_id' => 'required|numeric'
+            'course_id' => 'required|numeric'
 
         ]);
         if($validator->fails()){
@@ -78,8 +80,8 @@ class StudentController extends Controller
             $student = $this->student_repository->create(
                 Uuid::generate()->string,
                 $request->get('curp'),
-                $request->get('period_id'),
-                $person->id
+                $person->id,
+                $request->get('course_id'),
             );
             $user = $this->user_repository->create(
                 Uuid::generate()->string,
@@ -207,9 +209,9 @@ class StudentController extends Controller
     }
 
     public function list(){
-        $person = User::Where('rol_id', '=', User::Student)->get();
+        $persons = User::Where('rol_id', '=', User::Student)->get();
         $students = [];
-        foreach($person as $key=> $value){
+        foreach($persons as $key=> $value){
             $students[$key] = [
                 'id'=> $value['id'],
                 'uuid'=> $value['uuid'],
@@ -233,16 +235,19 @@ class StudentController extends Controller
                 'photo' => $value->people->photo,
                 'uuid_student' => $value->people->student->uuid,
                 'curp' => $value->people->student->curp,
-                'period_id' => $value->people->student->period_id,
+                'course_id' => $value->people->student->course_id,
+                'uuid_course' => $value->people->student->course->uuid,
+                'name_course' => $value->people->student->course->name,
             ];
-            return response()->json($students);
         }
+        return response()->json($students);
     }
 
     public function edit($uuid){
         $person = People::Where('uuid', '=', $uuid)->first();
         $user = User::Where('uuid', '=', $person->user->uuid)->first();
         $student = Student::Where('uuid', '=', $person->student->uuid)->first();
+        $course = Course::Where('uuid', '=', $person->student->course->uuid)->first();
 
         $masvar = [
             'id' => $person['id'],
@@ -267,6 +272,8 @@ class StudentController extends Controller
             'uuid_student' => $student['uuid'],
             'curp' => $student['curp'],
             'period_id' => $student['period_id'],
+            'name_course' => $course['name'],
+
         ];
         return response()->json($masvar);
     }

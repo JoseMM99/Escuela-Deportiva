@@ -130,7 +130,7 @@ class UserController extends Controller
 
         }
         try{
-            if($request->input("roles")=="teacher"){
+            if($request->input("roles")=="Maestro"){
                 $person = $this->people_repository->create(
                     Uuid::generate()->string,
                     $request->get('name'),
@@ -163,7 +163,7 @@ class UserController extends Controller
                     User::Teacher
                 );
             }
-            else if($request->input("roles")=="student"){
+            else if($request->input("roles")=="Alumno"){
                 $person = $this->people_repository->create(
                     Uuid::generate()->string,
                     $request->get('name'),
@@ -182,7 +182,7 @@ class UserController extends Controller
                 $student = $this->student_repository->create(
                     Uuid::generate()->string,
                     $request->get('curp'),
-                    $request->get('period_id'),
+                    $request->get('course_id'),
                     $person->id,
                 );
                 $user = $this->user_repository->create(
@@ -197,7 +197,7 @@ class UserController extends Controller
                     User::Student
                 );
             }
-            else if($request->input("roles")=="admin"){
+            else if($request->input("roles")=="Administrador"){
                 $person = $this->people_repository->create(
                     Uuid::generate()->string,
                     $request->get('name'),
@@ -225,7 +225,7 @@ class UserController extends Controller
                     User::Admin
                 );
             }
-            else if($request->input("roles")=="superadmin"){
+            else if($request->input("roles")=="SuperAdministrador"){
                 $person = $this->people_repository->create(
                     Uuid::generate()->string,
                     $request->get('name'),
@@ -423,6 +423,7 @@ class UserController extends Controller
                 'validation'=> $value['validation'],
                 'people_id'=> $value['people_id'],
                 'rol_id'=> $value['rol_id'],
+                'name_rol'=> $value->rol->rol,
                 'uuid_persona' => $value->people->uuid,
                 'name_persona' => $value->people->name,
                 'lastNameP' => $value->people->lastNameP,
@@ -437,8 +438,8 @@ class UserController extends Controller
                 'postalCode' => $value->people->postalCode,
                 'photo' => $value->people->photo,
             ];
-            return response()->json($usersL);
         }
+        return response()->json($usersL);
     }
 
     public function listA(){
@@ -467,8 +468,8 @@ class UserController extends Controller
                 'postalCode' => $value->people->postalCode,
                 'photo' => $value->people->photo,
             ];
-            return response()->json($usersL);
         }
+        return response()->json($usersL);
     }
 
     public function edit($uuid){

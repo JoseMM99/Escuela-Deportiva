@@ -74,6 +74,10 @@ class User extends Authenticatable implements JWTSubject
         return $this->belongsTo(People::class);
     }
 
+    public function course(){
+        return $this->HasManyThrough(Course::class, People::class);
+    }
+
     public function rol(){
         return $this->belongsTo(Rol::class);
     }

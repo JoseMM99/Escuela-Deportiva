@@ -30,9 +30,6 @@ Route::post('login',[UserController::class, 'authenticate']);
 Route::get('validar',[UserController::class, 'validation']);
 
 Route::group(['middleware' => ['jwt.verify']], function() {
-    
-});
-
 //User
 Route::get('Authenticate',[UserController::class, 'getAuthenticatedUser']);
 Route::post('user',[UserController::class, 'register']);
@@ -96,3 +93,6 @@ Route::put('assignment/update/{uuid}',[AssignmentController::class, 'update']);
 Route::get('assignment/list',[AssignmentController::class, 'list']);
 Route::get('assignment/edit/{uuid}',[AssignmentController::class, 'edit']);
 Route::delete('assignment/delete/{uuid}',[AssignmentController::class, 'delete']);
+});
+
+Route::post('user',[UserController::class, 'register']);

@@ -108,7 +108,6 @@ class AssignmentController extends Controller
             'student_id' => 'required|numeric',
             'teacher_id' => 'required|numeric',
             'activity_id' => 'required|numeric',
-            'period_id' => 'required|numeric'
         ]);
 
         if ($validator->fails()) {
@@ -160,8 +159,49 @@ class AssignmentController extends Controller
         ], 500);
     }
 
+    //public function list(){
+      //  return response()->json($this->assignment_repository->list());
+    //}
     public function list(){
-        return response()->json($this->assignment_repository->list());
+        $asings = Assignment::Where('uuid', '!=', null)->get();
+        $datos = [];
+        foreach($asings as $key=> $value){
+            $datos[$key] = [
+                'id'=> $value['id'],
+                'uuid'=> $value['uuid'],
+                'assignmentDate'=> $value['assignmentDate'],
+                'assistance'=> $value['assistance'],
+                'student_id'=> $value['student_id'],
+                'uuid_student' => $value->student->uuid,
+                'name_student' => $value->student->people->name,
+                'lastNameP' => $value->student->people->lastNameP,
+                'lastNameM' => $value->student->people->lastNameM,
+                'uuid_course' => $value->student->course->uuid,
+                'name_course' => $value->student->course->name,
+                'uuid_period' => $value->student->course->period->uuid,
+                'dateStarPeriod' => $value->student->course->period->dateStarPeriod,
+                'dateClosingPeriod' => $value->student->course->period->dateClosingPeriod,
+
+                'teacher_id'=> $value['teacher_id'],
+                'name_teacher' => $value->teacher->people->name,
+                'lastNameP_teacher' => $value->teacher->people->lastNameP,
+                'lastNameM_teacher' => $value->teacher->people->lastNameM,
+
+
+                'uuid_grade' => $value->grade->uuid,
+                'grade' => $value->grade->grade,
+                'feedback' => $value->grade->feedback,
+
+                'uuid_practice' => $value->practice->uuid,
+                'fechaEntrenamiento' => $value->practice->fechaEntrenamiento,
+
+                'activity_id'=> $value['activity_id'],
+                'uuid_activity' => $value->activity->uuid,
+                'name_activity' => $value->activity->name,
+                'description' => $value->activity->description,
+            ];
+        }
+        return response()->json($datos);
     }
 
     public function edit($uuid){

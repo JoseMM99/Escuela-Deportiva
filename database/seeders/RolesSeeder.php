@@ -18,25 +18,25 @@ class RolesSeeder extends Seeder
         //
         $roles = new Rol();
         $roles->uuid = Uuid::generate()->string;
-        $roles->rol = 'administrador';
+        $roles->rol = 'Administrador';
         $roles->Description = 'Tiene acceso a agregar, ver, editar o eliminar maestros y alumnos, así también crear periodos escolares en el sistema.';
         $roles->save();
 
         $roles = new Rol();
         $roles->uuid = Uuid::generate()->string;
-        $roles->rol = 'maestro';
+        $roles->rol = 'Maestro';
         $roles->Description = "Tiene acceso ver alumnos, también podrá crear, ver, editar o eliminar actividades, entrenamientos y evaluaciones de los alumnos.";
         $roles->save();
 
         $roles = new Rol();
         $roles->uuid = Uuid::generate()->string;
-        $roles->rol = 'alumno';
+        $roles->rol = 'Alumno';
         $roles->Description = "Tiene acceso a ver las calificaciones, retroalimentación de las actividades que realizó en el entrenamiento.";
         $roles->save();
 
         $roles = new Rol();
         $roles->uuid = Uuid::generate()->string;
-        $roles->rol = 'SuperAdmin';
+        $roles->rol = 'Super-Administrador';
         $roles->Description = 'Tiene acceso a agregar, ver, editar o eliminar administradores y crear un backup del sistema.';
         $roles->save();
     }
