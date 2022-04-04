@@ -45,7 +45,7 @@ class AssignmentController extends Controller
             'feedback' => 'required|string|min:10|max:255',
 
             'assignmentDate' => 'required|date',
-            'assistance' => 'required|boolean',
+            'assistance' => 'required|string|max:2',
             'student_id' => 'required|numeric',
             'teacher_id' => 'required|numeric',
             'activity_id' => 'required|numeric',
@@ -104,7 +104,7 @@ class AssignmentController extends Controller
             'grade' => 'required|regex:/^[0-9]+(\.[0-9][0-9]?)?$/',
             'feedback' => 'required|string|min:10|max:255',
             'assignmentDate' => 'required|date',
-            'assistance' => 'required|boolean',
+            'assistance' => 'required|string',
             'student_id' => 'required|numeric',
             'teacher_id' => 'required|numeric',
             'activity_id' => 'required|numeric',

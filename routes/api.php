@@ -96,3 +96,5 @@ Route::delete('assignment/delete/{uuid}',[AssignmentController::class, 'delete']
 });
 
 Route::post('user',[UserController::class, 'register']);
+
+

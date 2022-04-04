@@ -20,7 +20,6 @@ class Assignment extends Eloquent
         'activity_id',
         'practice_id',
         'grade_id',
-        'period_id'
     ];
 
     protected $hidden = [
