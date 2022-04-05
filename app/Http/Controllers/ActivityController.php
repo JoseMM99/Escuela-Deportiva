@@ -72,7 +72,17 @@ class ActivityController extends Controller
     }
 
     public function list(){
-        return $this->activity_repository->list();
+        $activities = Activity::Where('uuid', '!=', null)->get();
+        $datos = [];
+        foreach($activities as $key=> $value){
+            $datos[$key] = [
+                'id'=> $value['id'],
+                'uuid'=> $value['uuid'],
+                'name'=> $value['name'],
+                'description'=> $value['description'],
+            ];
+        }
+        return response()->json($datos);
     }
 
     public function edit($uuid){

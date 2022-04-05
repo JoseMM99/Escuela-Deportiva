@@ -71,7 +71,6 @@ class TeacherController extends Controller
                 $request->get('street'),
                 $request->get('avenue'),
                 $request->get('postalCode'),
-                'default.jpg'
             );
             $teacher = $this->teacher_repository->create(
                 Uuid::generate()->string,
@@ -143,7 +142,6 @@ class TeacherController extends Controller
                 $request->get('street'),
                 $request->get('avenue'),
                 $request->get('postalCode'),
-                $request->get('photo')
             );
             $teacher = $this->teacher_repository->update(
                 $global->teacher->uuid,
@@ -168,7 +166,7 @@ class TeacherController extends Controller
         }
     }
 
-    public function upload(Request $request){
+    /*public function upload(Request $request){
         $image = $request->file('file0');
         $validator = Validator::make($request->all(),[
             'file0'=> 'mimes:jpg,png,jpeg|required|max:3000'//si no es max es size
@@ -196,7 +194,7 @@ class TeacherController extends Controller
         }else{
             return response()->Json('No existe la imagen');
         }
-    }
+    }*/
 
     public function sendEmail($user){
         $datas['subject'] = 'Piso Trece';
@@ -232,7 +230,6 @@ class TeacherController extends Controller
                 'street' => $value->people->street,
                 'avenue' => $value->people->avenue,
                 'postalCode' => $value->people->postalCode,
-                'photo' => $value->people->photo,
                 'uuid_teacher' => $value->people->teacher->uuid,
                 'rfc' => $value->people->teacher->rfc,
             ];
@@ -259,7 +256,6 @@ class TeacherController extends Controller
             'street' => $person['street'],
             'avenue' => $person['avenue'],
             'postalCode' => $person['postalCode'],
-            'photo' => $person['photo'],
             'uuid_user' => $user['uuid'],
             'name_user' => $user['name'],
             'email' => $user['email'],

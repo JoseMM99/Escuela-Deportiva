@@ -38,12 +38,9 @@ class AssignmentController extends Controller
     public function register(Request $request){
 
         $validator = Validator::make($request->all(), [
-
             'fechaEntrenamiento' => 'required|date',
-
             'grade' => 'required|regex:/^[0-9]+(\.[0-9][0-9]?)?$/',
             'feedback' => 'required|string|min:10|max:255',
-
             'assignmentDate' => 'required|date',
             'assistance' => 'required|string|max:2',
             'student_id' => 'required|numeric',
@@ -89,13 +86,9 @@ class AssignmentController extends Controller
 
         } catch (\Exception|\Throwable $e) {
             Log::emergency('AssignmentController - register - Ocurrio un error');
+            return response()->json($e,500);
             DB::rollback();
         }
-
-        return response()->json([
-            'status' => 'error',
-            'message' => 'something went wrong'
-        ], 500);
     }
 
     public function update(Request $request, $uuid){
@@ -106,7 +99,6 @@ class AssignmentController extends Controller
             'assignmentDate' => 'required|date',
             'assistance' => 'required|string',
             'student_id' => 'required|numeric',
-            'teacher_id' => 'required|numeric',
             'activity_id' => 'required|numeric',
         ]);
 
@@ -138,7 +130,6 @@ class AssignmentController extends Controller
                 $request->get('assignmentDate'),
                 $request->get('assistance'),
                 $request->get('student_id'),
-                $request->get('teacher_id'),
                 $request->get('activity_id'),
             );
 

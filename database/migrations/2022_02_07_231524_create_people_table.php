@@ -27,7 +27,6 @@ return new class extends Migration
             $table->string('street',25);
             $table->string('avenue',25);
             $table->string('postalCode',5);
-            $table->string('photo',60);
             $table->timestamps();
             $table->softDeletes();
         });

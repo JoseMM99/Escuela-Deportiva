@@ -75,7 +75,6 @@ class StudentController extends Controller
                 $request->get('street'),
                 $request->get('avenue'),
                 $request->get('postalCode'),
-                'default.jpg'
             );
             $student = $this->student_repository->create(
                 Uuid::generate()->string,
@@ -146,7 +145,6 @@ class StudentController extends Controller
                 $request->get('street'),
                 $request->get('avenue'),
                 $request->get('postalCode'),
-                $request->get('photo')
             );
             $student = $this->student_repository->update(
                 $global->student->uuid,
@@ -168,7 +166,7 @@ class StudentController extends Controller
         }
     }
 
-    public function upload(Request $request){
+    /*public function upload(Request $request){
         $image = $request->file('file0');
         $validator = Validator::make($request->all(),[
             'file0'=> 'mimes:jpg,png,jpeg|required'
@@ -186,9 +184,9 @@ class StudentController extends Controller
             'status' => 'success'
         );
         return response()->json($data, $data['code']);
-    }
+    }*/
 
-    public function return_image($name){
+    /*public function return_image($name){
         $image = \Storage::disk('imagenes')->get($name);
         if($imagen){
             $file = \Storage::disk('imagenes')->get($name);
@@ -196,7 +194,7 @@ class StudentController extends Controller
         }else{
             return response()->Json('No existe la imagen');
         }
-    }
+    }*/
 
     public function sendEmail($user){
         $datas['subject'] = 'Piso Trece';
@@ -232,7 +230,6 @@ class StudentController extends Controller
                 'street' => $value->people->street,
                 'avenue' => $value->people->avenue,
                 'postalCode' => $value->people->postalCode,
-                'photo' => $value->people->photo,
                 'uuid_student' => $value->people->student->uuid,
                 'curp' => $value->people->student->curp,
                 'course_id' => $value->people->student->course_id,
@@ -263,7 +260,6 @@ class StudentController extends Controller
             'street' => $person['street'],
             'avenue' => $person['avenue'],
             'postalCode' => $person['postalCode'],
-            'photo' => $person['photo'],
             'uuid_user' => $user['uuid'],
             'name_user' => $user['name'],
             'email' => $user['email'],
@@ -271,7 +267,8 @@ class StudentController extends Controller
             'rol_id' => $user['rol_id'],
             'uuid_student' => $student['uuid'],
             'curp' => $student['curp'],
-            'period_id' => $student['period_id'],
+            'people_id_student' => $student['people_id'],
+            'course_id' => $student['course_id'],
             'name_course' => $course['name'],
 
         ];

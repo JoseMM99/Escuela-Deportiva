@@ -144,7 +144,7 @@ class UserController extends Controller
                     $request->get('street'),
                     $request->get('avenue'),
                     $request->get('postalCode'),
-                    'default.jpg'
+                    //'default.jpg'
                 );
                 $teacher = $this->teacher_repository->create(
                     Uuid::generate()->string,
@@ -177,7 +177,7 @@ class UserController extends Controller
                     $request->get('street'),
                     $request->get('avenue'),
                     $request->get('postalCode'),
-                    'default.jpg'
+                    //'default.jpg'
                 );
                 $student = $this->student_repository->create(
                     Uuid::generate()->string,
@@ -211,7 +211,7 @@ class UserController extends Controller
                     $request->get('street'),
                     $request->get('avenue'),
                     $request->get('postalCode'),
-                    'default.jpg'
+                    //'default.jpg'
                 );
                     $user = $this->user_repository->create(
                     Uuid::generate()->string,
@@ -239,7 +239,7 @@ class UserController extends Controller
                     $request->get('street'),
                     $request->get('avenue'),
                     $request->get('postalCode'),
-                    'default.jpg'
+                    //'default.jpg'
                 );
                     $user = $this->user_repository->create(
                     Uuid::generate()->string,
@@ -269,8 +269,6 @@ class UserController extends Controller
     public function update(Request $request, $uuid){
         $validator = Validator::make($request->all(),[
             'name' => 'required|string|max:35',
-            'email' => 'required|email|unique:users',
-            'password' => 'required|string|max:16',
             'lastNameP' => 'required|string|max:30',
             'lastNameM' => 'required|string|max:30',
             'gender' => 'required|string|max:9',
@@ -289,7 +287,7 @@ class UserController extends Controller
         try{
             $global = People::Where('uuid', '=', $uuid)->first();
 
-            if($request->input("roles")=="student"){
+            if($request->input("roles")=="Maestro"){
 
                 $person = $this->people_repository->update(
                     $global->uuid,
@@ -304,7 +302,7 @@ class UserController extends Controller
                     $request->get('street'),
                     $request->get('avenue'),
                     $request->get('postalCode'),
-                    'default.jpg'
+                    //'default.jpg'
                 );
                 $teacher = $this->teacher_repository->update(
                     $global->teacher->uuid,
@@ -315,11 +313,9 @@ class UserController extends Controller
                     $request->get('name'),
                     $request->get('lastNameP'),
                     $request->get('lastNameM'),
-                    $request->get('email'),
-                    $request->get('password'),
                 );
             }
-            else if($request->input("roles")=="student"){
+            else if($request->input("roles")=="Alumno"){
                 $person = $this->people_repository->update(
                     $global->uuid,
                     $request->get('name'),
@@ -333,7 +329,7 @@ class UserController extends Controller
                     $request->get('street'),
                     $request->get('avenue'),
                     $request->get('postalCode'),
-                    'default.jpg'
+                    //'default.jpg'
                 );
                 $student = $this->student_repository->update(
                     $global->student->uuid,
@@ -344,11 +340,9 @@ class UserController extends Controller
                     $request->get('name'),
                     $request->get('lastNameP'),
                     $request->get('lastNameM'),
-                    $request->get('email'),
-                    $request->get('password'),
                 );
             }
-            else if($request->input("roles")=="admin"){
+            else if($request->input("roles")=="Administrador"){
                 $person = $this->people_repository->update(
                     $global->uuid,
                     $request->get('name'),
@@ -362,18 +356,16 @@ class UserController extends Controller
                     $request->get('street'),
                     $request->get('avenue'),
                     $request->get('postalCode'),
-                    'default.jpg'
+                    //'default.jpg'
                 );
                     $user = $this->user_repository->update(
                     $global->user->uuid,
                     $request->get('name'),
                     $request->get('lastNameP'),
                     $request->get('lastNameM'),
-                    $request->get('email'),
-                    $request->get('password'),
                 );
             }
-            else if($request->input("roles")=="superadmin"){
+            else if($request->input("roles")=="SuperAdministrador"){
                 $person = $this->people_repository->update(
                     $global->uuid,
                     $request->get('name'),
@@ -387,15 +379,13 @@ class UserController extends Controller
                     $request->get('street'),
                     $request->get('avenue'),
                     $request->get('postalCode'),
-                    'default.jpg'
+                    //'default.jpg'
                 );
                     $user = $this->user_repository->update(
                     $global->user->uuid,
                     $request->get('name'),
                     $request->get('lastNameP'),
                     $request->get('lastNameM'),
-                    $request->get('email'),
-                    $request->get('password'),
                 );
             }
             
@@ -436,7 +426,7 @@ class UserController extends Controller
                 'street' => $value->people->street,
                 'avenue' => $value->people->avenue,
                 'postalCode' => $value->people->postalCode,
-                'photo' => $value->people->photo,
+                //'photo' => $value->people->photo,
             ];
         }
         return response()->json($usersL);
@@ -466,7 +456,7 @@ class UserController extends Controller
                 'street' => $value->people->street,
                 'avenue' => $value->people->avenue,
                 'postalCode' => $value->people->postalCode,
-                'photo' => $value->people->photo,
+                //'photo' => $value->people->photo,
             ];
         }
         return response()->json($usersL);
@@ -490,7 +480,7 @@ class UserController extends Controller
             'street' => $person['street'],
             'avenue' => $person['avenue'],
             'postalCode' => $person['postalCode'],
-            'photo' => $person['photo'],
+            //'photo' => $person['photo'],
             'uuid_user' => $user['uuid'],
             'name_user' => $user['name'],
             'email' => $user['email'],

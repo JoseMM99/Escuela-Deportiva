@@ -43,16 +43,16 @@ Route::get('rol',[RolController::class, 'list']);
 //Teachers
 Route::post('teacher',[TeacherController::class, 'register']);
 Route::put('teacher/update/{uuid}',[TeacherController::class, 'update']);
-Route::post('teacher/upload',[TeacherController::class, 'upload']);
-Route::get('teacher/upload/{name}',[TeacherController::class, 'return_image']);
+//Route::post('teacher/upload',[TeacherController::class, 'upload']);
+//Route::get('teacher/upload/{name}',[TeacherController::class, 'return_image']);
 Route::get('teacher/list',[TeacherController::class, 'list']);
 Route::get('teacher/edit/{uuid}',[TeacherController::class, 'edit']);
 Route::delete('teacher/delete/{uuid}',[TeacherController::class, 'delete']);
 //Students
 Route::post('student',[StudentController::class, 'register']);
 Route::put('student/update/{uuid}',[StudentController::class, 'update']);
-Route::post('student/upload',[StudentController::class, 'upload']);
-Route::get('student/upload/{name}',[StudentController::class, 'return_image']);
+//Route::post('student/upload',[StudentController::class, 'upload']);
+//Route::get('student/upload/{name}',[StudentController::class, 'return_image']);
 Route::get('student/list',[StudentController::class, 'list']);
 Route::get('student/edit/{uuid}',[StudentController::class, 'edit']);
 Route::delete('student/delete/{uuid}',[StudentController::class, 'delete']);
@@ -94,7 +94,3 @@ Route::get('assignment/list',[AssignmentController::class, 'list']);
 Route::get('assignment/edit/{uuid}',[AssignmentController::class, 'edit']);
 Route::delete('assignment/delete/{uuid}',[AssignmentController::class, 'delete']);
 });
-
-Route::post('user',[UserController::class, 'register']);
-
-

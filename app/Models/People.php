@@ -25,7 +25,6 @@ class People extends Eloquent
         'street',
         'avenue',
         'postalCode',
-        'photo'
     ];
 
     protected $hidden = [

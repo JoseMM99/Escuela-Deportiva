@@ -4,7 +4,7 @@ use App\Models\People;
 
 class PeopleRepository{
 
-    public function create($uuid, $name, $lastNameP, $lastNameM, $gender, $bloodGroup, $rhFactor, $birthDate, $phone, $street, $avenue, $postalCode, $photo){
+    public function create($uuid, $name, $lastNameP, $lastNameM, $gender, $bloodGroup, $rhFactor, $birthDate, $phone, $street, $avenue, $postalCode){
         $people['uuid'] = $uuid;
         $people['name'] = $name;
         $people['lastNameP'] = $lastNameP;
@@ -17,11 +17,10 @@ class PeopleRepository{
         $people['street'] = $street;
         $people['avenue'] = $avenue;
         $people['postalCode'] = $postalCode;
-        $people['photo'] = $photo;
         return People::create($people);
     }
 
-    public function update($uuid, $name, $lastNameP, $lastNameM, $gender, $bloodGroup, $rhFactor, $birthDate, $phone, $street, $avenue, $postalCode, $photo){
+    public function update($uuid, $name, $lastNameP, $lastNameM, $gender, $bloodGroup, $rhFactor, $birthDate, $phone, $street, $avenue, $postalCode){
         $people = $this->find($uuid);
         $people->name = $name;
         $people->lastNameP = $lastNameP;
@@ -34,7 +33,6 @@ class PeopleRepository{
         $people->street = $street;
         $people->avenue = $avenue;
         $people->postalCode = $postalCode;
-        $people->photo = $photo;
         $people->save();
         return $people;
     }

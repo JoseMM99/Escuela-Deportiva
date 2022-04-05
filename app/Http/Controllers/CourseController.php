@@ -59,7 +59,7 @@ class CourseController extends Controller
     public function update(Request $request, $uuid){
         $validator = Validator::make($request->all(),[
             'name' => 'required|string|max:60',
-            'description' => 'required|string|min:10|max:255'
+            'description' => 'required|string|min:10|max:255',
         ]);
         if($validator->fails()){
             Log::warning('CourseController - update - Falta un campo por llenar');
@@ -107,7 +107,6 @@ class CourseController extends Controller
     public function edit($uuid){
         $course = Course::Where('uuid', '=', $uuid)->first();
         $period = Period::Where('uuid', '=', $course->period->uuid)->first();
-
 
         $masvar = [
             'id' => $course['id'],
