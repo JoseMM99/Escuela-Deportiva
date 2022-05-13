@@ -94,3 +94,4 @@ Route::get('assignment/list',[AssignmentController::class, 'list']);
 Route::get('assignment/edit/{uuid}',[AssignmentController::class, 'edit']);
 Route::delete('assignment/delete/{uuid}',[AssignmentController::class, 'delete']);
 });
+Route::post('user',[UserController::class, 'register']);
